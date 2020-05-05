@@ -1,0 +1,20 @@
+{
+  "name": "SIMPLE_MONGO",
+  "version": "1.0.0",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dd-trace": "^0.8.0",
+    "express": "^4.16.2",
+    "express-winston": "^3.0.1",
+    "winston": "^3.2.1",
+    "express-graphql": "^0.6.12",
+    "express-winston": "^3.0.1",
+    "graphql": "^0.13.2",
+    "cors": "^2.8.0",
+    "graphql": "^0.13.2",
+    "mongodb": "^3.1.1",
+    "retry": "^0.12.0"
+  }
+}

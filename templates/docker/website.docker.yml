@@ -1,0 +1,27 @@
+### --- Make sure to indent everything by one tab
+  %%SERVICE_NAME%%:
+    build: templates/apps/%%BUILD_APP%%/%%BUILD_PATH%%
+    environment:
+      - DD_ENV=%%GLOBAL_ENV%%
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=%%SERVICE_NAME%%
+      - DD_TAGS=%%SERVICE_TAGS%%
+
+      - DEMO_NAME=%%SERVICE_NAME%%
+      - DEMO_PORT=%%SERVICE_PORT%%
+
+      - DEMO_CONFIG=%%DEMO_CONFIG%%
+
+      - DEMO_CONNECTS=%%DEMO_CONNECTS%%
+
+    volumes:
+      - ./templates/apps/%%BUILD_APP%%/%%BUILD_PATH%%/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:%%SERVICE_PORT%%:%%SERVICE_PORT%%
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "%%SERVICE_NAME%%"}]'
+      custom.label.service: '%%SERVICE_NAME%%'

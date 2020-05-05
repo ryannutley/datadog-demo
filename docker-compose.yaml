@@ -1,0 +1,340 @@
+version: '3.5'
+services:
+
+### --- Make sure to indent everything by one tab
+  authservice:
+    build: templates/apps/auth_service/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=authservice
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=authservice
+      - DEMO_PORT=8003
+
+      - DEMO_CONFIG={"resources":["login","forgot_password","auth","logout"]}
+
+      - DEMO_CONNECTS=null
+
+    volumes:
+      - ./templates/apps/auth_service/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8003:8003
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "authservice"}]'
+      custom.label.service: 'authservice'
+
+  authredis:
+    image: redis:alpine
+### --- Make sure to indent everything by one tab
+  fraudanalytics:
+    build: templates/apps/simple_mongo/app
+    links:
+      - mongo
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=fraudanalytics
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=fraudanalytics
+      - DEMO_PORT=8004
+
+      - DEMO_CONFIG={"resources":["url0","url1","url2","url3"]}
+
+      - DEMO_CONNECTS=null
+
+    volumes:
+      - ./templates/apps/simple_mongo/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8004:8004
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "fraudanalytics"}]'
+      custom.label.service: 'fraudanalytics'
+
+  mongo:
+    image: mongo
+### --- Make sure to indent everything by one tab
+  website:
+    build: templates/apps/website/website_ui
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=website
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=website
+      - DEMO_PORT=8001
+
+      - DEMO_CONFIG={"template":"bank","resources":["url0","url1","url2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_api","type":"web","name":"webgateway","port":"8002","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/website/website_ui/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8001:8001
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "website"}]'
+      custom.label.service: 'website'
+### --- Make sure to indent everything by one tab
+  webgateway:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=webgateway
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=webgateway
+      - DEMO_PORT=8002
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"auth_service","type":"web","name":"authservice","port":"8003","paths":["login","forgot_password","auth","logout"]},{"service":"simple_api","type":"web","name":"accounts","port":"8008","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8002:8002
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "webgateway"}]'
+      custom.label.service: 'webgateway'
+### --- Make sure to indent everything by one tab
+  loans:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=loans
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=loans
+      - DEMO_PORT=8005
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_api","type":"web","name":"transactions","port":"8010","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8005:8005
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "loans"}]'
+      custom.label.service: 'loans'
+### --- Make sure to indent everything by one tab
+  savings:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=savings
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=savings
+      - DEMO_PORT=8006
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_api","type":"web","name":"transactions","port":"8010","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8006:8006
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "savings"}]'
+      custom.label.service: 'savings'
+### --- Make sure to indent everything by one tab
+  mortgages:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=mortgages
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=mortgages
+      - DEMO_PORT=8007
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_api","type":"web","name":"transactions","port":"8010","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8007:8007
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "mortgages"}]'
+      custom.label.service: 'mortgages'
+### --- Make sure to indent everything by one tab
+  accounts:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=accounts
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=accounts
+      - DEMO_PORT=8008
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_api","type":"web","name":"loans","port":"8005","paths":["url0","url1","ulr2","url3"]},{"service":"simple_api","type":"web","name":"savings","port":"8006","paths":["url0","url1","ulr2","url3"]},{"service":"simple_api","type":"web","name":"mortgages","port":"8007","paths":["url0","url1","ulr2","url3"]},{"service":"simple_api","type":"web","name":"credit","port":"8009","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8008:8008
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "accounts"}]'
+      custom.label.service: 'accounts'
+### --- Make sure to indent everything by one tab
+  credit:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=credit
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=credit
+      - DEMO_PORT=8009
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_api","type":"web","name":"transactions","port":"8010","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8009:8009
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "credit"}]'
+      custom.label.service: 'credit'
+### --- Make sure to indent everything by one tab
+  transactions:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=transactions
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=transactions
+      - DEMO_PORT=8010
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"simple_mongo","type":"web","name":"fraudanalytics","port":"8004","paths":["url0","url1","url2","url3"]},{"service":"simple_api","type":"web","name":"accounts","port":"8008","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8010:8010
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "transactions"}]'
+      custom.label.service: 'transactions'
+### --- Make sure to indent everything by one tab
+  paymentservice:
+    build: templates/apps/simple_api/app
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TRACE_DEBUG
+      - DD_TRACE_ENABLED
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_LOG_LEVE=debug
+      - DD_AGENT_HOST=agent
+      - DD_SERVICE_NAME=paymentservice
+      - DD_TAGS={"team":"my-team","cost_center":"my-team","version":"1.0.0"}
+
+      - DEMO_NAME=paymentservice
+      - DEMO_PORT=8011
+
+      - DEMO_CONFIG={"resources":["url0","url1","ulr2","url3"]}
+
+      - DEMO_CONNECTS=[{"service":"auth_service","type":"web","name":"authservice","port":"8003","paths":["login","forgot_password","auth","logout"]},{"service":"simple_api","type":"web","name":"transactions","port":"8010","paths":["url0","url1","ulr2","url3"]}]
+
+    volumes:
+      - ./templates/apps/simple_api/app/src:/usr/src/app/src
+    ports:
+      - 127.0.0.1:8011:8011
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "docker", "service": "paymentservice"}]'
+      custom.label.service: 'paymentservice'
+### --- Make sure to indent everything by one tab
+  agent:
+    image: datadog/agent:latest
+    environment:
+      - DD_ENV=bank-of-pigy
+      - DD_TAGS=['env:bank-of-pigy']
+
+      - DD_APM_ENABLED=true
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+
+      - DD_PROCESS_AGENT_ENABLED=true
+
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_DD_PORT=443
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+
+      - DD_DOCKER_LABELS_AS_TAGS={custom.label.service":"service","my.custom.label.component":"component"}
+
+      - DD_BIND_HOST=0.0.0.0
+
+      - DD_SITE=datadoghq.com
+      - DD_API_KEY=
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+
+
+volumes:
+  db_data: {}

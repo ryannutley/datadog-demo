@@ -1,0 +1,28 @@
+### --- Make sure to indent everything by one tab
+  agent:
+    image: datadog/agent:latest
+    environment:
+      - DD_ENV=%%GLOBAL_ENV%%
+      - DD_TAGS=['env:%%GLOBAL_ENV%%']
+
+      - DD_APM_ENABLED=true
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+
+      - DD_PROCESS_AGENT_ENABLED=true
+
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_DD_PORT=443
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+
+      - DD_DOCKER_LABELS_AS_TAGS={custom.label.service":"service","my.custom.label.component":"component"}
+
+      - DD_BIND_HOST=0.0.0.0
+
+      - DD_SITE=%%DATADOG_SITE%%
+      - DD_API_KEY=%%DATADOG_API%%
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro

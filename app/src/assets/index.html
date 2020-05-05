@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en-GB">
+
+  <head>
+    <title>DIVOC - Demo Generator Tool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+          <a class="navbar-brand col-sm-12" href="#">DIVOC 2020</a>
+        </nav>
+
+        <div class="page-navigator w-100 d-flex">
+
+          <!-- Page 1 -->
+          <main role="main" class="col-md-12 px-4 h-page h-100" id="page-1">
+            <div class="row border-bottom pt-3 pb-2 mb-3 border-bottom">
+              <div class="col-md-4">
+                  <h1 class="h2">Demo Setup</h1>
+              </div>
+              <div class="col-md-4 text-center d-flex align-items-center justify-content-center">
+                  <span class="h4 text-muted"><span class="text-dark">Step 1</span> of 3</span>
+              </div>
+              <div class="col-md-4 text-right">
+                  <button type="button" class="btn btn-success text-light next" id="page-1-next">Next &rarr;</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <form class="col-6 mx-auto" id="project_form">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Customer</label>
+                      <input name="name" type="text" class="form-control" placeholder="e.g Bank of America" value="">
+                    </div>
+                    <div class="form-group">
+                      <label>Customer Website</label>
+                      <input name="website" type="text" class="form-control" placeholder="e.g bankofamerica.com" value="">
+                    </div>
+                    <div class="form-group">
+                      <label>Customer Logo URL</label>
+                      <input name="logo" type="text" class="form-control" placeholder="e.g https://d2e70e9yced57e.cloudfront.net/wallethub/posts/61464/bank_of_america_logo_.png" value="">
+                    </div>
+                    <div class="form-group">
+                      <img src="" class="img-thumbnail" id="project_logo_placeholder" />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>API Key</label>
+                      <input name="api_key" type="text" class="form-control" placeholder="" value="">
+                    </div>
+                    <div class="form-group">
+                      <label>Endpoint</label>
+                        <select name="site" class="form-control">
+                          <option value="datadoghq.com">US</option>
+                          <option value="datadoghq.eu">EU</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Environment</label>
+                      <input name="env" type="text" class="form-control text-muted" placeholder="bank-of-america" value="">
+                    </div>
+                    <div class="form-group">
+                      <label>Global Tags</label>
+                      <input class="form-control" name="tags" data-role="tagsinput" value="test:a,team:ryan,globa:tag">
+                    </div>
+                  </div>
+                </div>
+                <pre class="d-none"><code id="project_settings"></code></pre>
+              </form>
+            </div>
+          </main>
+
+          <!-- Page 2 -->
+          <main role="main" class="col-md-12 px-4 h-page h-100" id="page-2">
+            <div class="row border-bottom pt-3 pb-2 mb-3 border-bottom">
+              <div class="col-md-4">
+                  <h1 class="h2">Service Builder <span class="badge badge-secondary env-name"></span></h1>
+              </div>
+              <div class="col-md-4 text-center d-flex align-items-center justify-content-center">
+                  <span class="h4 text-muted"><span class="text-dark">Step 2</span> of 3</span>
+              </div>
+              <div class="col-md-4 text-right">
+                  <button type="button" class="btn btn-secondary text-light previous" id="page-2-back">&larr; Back</button>
+                  <button type="button" class="btn btn-success text-light next" id="page-2-next">Next &rarr;</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 service-list">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                  <h4>Simple Services</h4>
+                </div>
+                <ul class="list-group">
+                  <li class="list-group-item new" data-component="website">Website<button type="button" class="btn btn-sm btn-outline-secondary float-right py-0">+</button></li>
+                  <li class="list-group-item new" data-component="api">REST API<button type="button" class="btn btn-sm btn-outline-secondary float-right py-0">+</button></li>
+                  <li class="list-group-item new" data-component="auth_service">Auth Service<button type="button" class="btn btn-sm btn-outline-secondary float-right py-0">+</button></li>
+                  <li class="list-group-item new" data-component="mongo_service">Mongo Service<button type="button" class="btn btn-sm btn-outline-secondary float-right py-0">+</button></li>
+                </ul>
+                <br/>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                  <h4>Pre-Built Architectures</h4>
+                </div>
+                <ul class="list-group">
+                  <li class="list-group-item clone" data-component="bank">Bank <button type="button" class="btn btn-sm btn-outline-secondary float-right py-0">+</button></li>
+                  <li class="list-group-item disabled">Telecoms <span class="badge badge-secondary float-right mt-1">coming soon</span></li>
+                  <li class="list-group-item disabled">Media Streaming <span class="badge badge-secondary float-right mt-1">coming soon</span></li>
+                  <li class="list-group-item disabled">IoT <span class="badge badge-secondary float-right mt-1">coming soon</span></li>
+                </ul>
+              </div>
+              <div class="col-md-10">
+                <div class="d-flex border" id="graph-container"></div>
+                <hr />
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-light border"><span class="icon icon-code"></span></button>
+                    <button type="button" class="btn btn-light border"><span class="icon icon-cog"></span></button>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-light border" id="clearSchema"><span class="icon icon-trash text-danger"></span></button>
+                  </div>
+                </div>
+                <pre class="d-none" id="schema"></pre>
+              </div>
+              <div class="col-md-2 position-absolute node-editor-pane out bg-light border">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                  <h4 class="d-flex justify-content-between w-100 pr-3">Service Editor <button type="button" class="close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <form class="pr-4" id="node-edit"></form>
+              </div>
+            </div>
+          </main>
+
+          <!-- Page 3 -->
+          <main role="main" class="col-md-12 px-4 h-page h-100" id="page-3">
+            <div class="row border-bottom pt-3 pb-2 mb-3 border-bottom">
+              <div class="col-md-4">
+                <h1 class="h2">Demo Setup</h1>
+              </div>
+              <div class="col-md-4 text-center d-flex align-items-center justify-content-center">
+                <span class="h4 text-muted"><span class="text-dark">Step 3</span> of 3</span>
+              </div>
+              <div class="col-md-4 text-right">
+                <button type="button" class="btn btn-secondary text-light previous" id="page-3-back">&larr; Back</button>
+                <button type="button" class="btn btn-info" id="build-switch">Build</button>
+                <button type="button" class="btn btn-danger mr-4" id="kill-switch">Destroy</button>
+                <button type="button" class="btn btn-success text-light" id="simulate">Simulate</button>
+                <a href="#" class="btn text-light" target="_blank" id="dd-service-map" style="background-color:#774ba2">View</a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <table class="table table-hover">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Service Name</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Port</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="service-list">
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-6">
+                <div class="bg-dark text-success p-4" id="terminal"></div>
+              </div>
+            </div>
+
+          </main>
+
+        </div>
+
+      </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/tagsinput.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <!-- START SIGMA IMPORTS -->
+    <script src="js/sigma/sigma.core.js"></script>
+    <script src="js/sigma/conrad.js"></script>
+    <script src="js/sigma/utils/sigma.utils.js"></script>
+    <script src="js/sigma/utils/sigma.polyfills.js"></script>
+    <script src="js/sigma/sigma.settings.js"></script>
+    <script src="js/sigma/classes/sigma.classes.dispatcher.js"></script>
+    <script src="js/sigma/classes/sigma.classes.configurable.js"></script>
+    <script src="js/sigma/classes/sigma.classes.graph.js"></script>
+    <script src="js/sigma/classes/sigma.classes.camera.js"></script>
+    <script src="js/sigma/classes/sigma.classes.quad.js"></script>
+    <script src="js/sigma/classes/sigma.classes.edgequad.js"></script>
+    <script src="js/sigma/captors/sigma.captors.mouse.js"></script>
+    <script src="js/sigma/captors/sigma.captors.touch.js"></script>
+    <script src="js/sigma/renderers/sigma.renderers.canvas.js"></script>
+    <script src="js/sigma/renderers/sigma.renderers.webgl.js"></script>
+    <script src="js/sigma/renderers/sigma.renderers.svg.js"></script>
+    <script src="js/sigma/renderers/sigma.renderers.def.js"></script>
+    <script src="js/sigma/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+    <script src="js/sigma/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+    <script src="js/sigma/renderers/webgl/sigma.webgl.edges.def.js"></script>
+    <script src="js/sigma/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+    <script src="js/sigma/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="js/sigma/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="js/sigma/renderers/svg/sigma.svg.utils.js"></script>
+    <script src="js/sigma/renderers/svg/sigma.svg.nodes.def.js"></script>
+    <script src="js/sigma/renderers/svg/sigma.svg.edges.def.js"></script>
+    <script src="js/sigma/renderers/svg/sigma.svg.edges.curve.js"></script>
+    <script src="js/sigma/renderers/svg/sigma.svg.labels.def.js"></script>
+    <script src="js/sigma/renderers/svg/sigma.svg.hovers.def.js"></script>
+    <script src="js/sigma/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="js/sigma/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="js/sigma/misc/sigma.misc.animation.js"></script>
+    <script src="js/sigma/misc/sigma.misc.bindEvents.js"></script>
+    <script src="js/sigma/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="js/sigma/misc/sigma.misc.drawHovers.js"></script>
+    <!-- END SIGMA IMPORTS -->
+    <script src="js/sigma/plugins/sigma.plugins.neighborhoods/sigma.plugins.neighborhoods.js"></script>
+    <script src="js/sigma/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+    <script src="js/sigma/plugins/sigma.layout.forceAtlas2/supervisor.js"></script>
+    <script src="js/sigma/plugins/sigma.layout.forceAtlas2/worker.js"></script>
+    <script src="js/sigma/plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+    <script src="js/sigma/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="js/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="js/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="js/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+
+    <script src="js/dashboard.js"></script>
+
+  </body>
+</html>
